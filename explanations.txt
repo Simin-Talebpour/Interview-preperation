@@ -1,0 +1,65 @@
+Question 1 explanation: 
+
+We can check the anagrams of string t in another string s by first converting both s and t to lists. Then we start from the first item in list(s) and take the firt len(t) items. 
+we sort both lists to account for combinations. We keep moving forward in s and every time we select the first len(t) characters. If any of these len(t) characters in s are equal
+to t, then we return True. 
+
+Question 1 complexity: 
+
+- If either one of the input strings are empty, the compllexity will be O(1). 
+- Otherwise, we make a list of t and sort it once(i.e. O(n Log n+1)). Next, we make a list inside the loop O(n) and sort it (i.e. O(n^2 Log n)) and append to a list (i.e. O(n)). 
+So all together: O((n^2+n)log n +2n+1)
+
+
+Question 2 explanation: 
+
+To answer this question I first defined a function which takes a string and reverses it, if the two where equal then it returns True. Now we go to the original string we start with
+ the first character of the input string and we expand around that character, that is we take that character as the center and firt add one character before and after it, then we 
+check if it is palindromic and if so we add it to a dictionary. then we go two characters before and after, all the way to len(s)/2 (assuming s is the input string). we do this for all 
+the characters in the input string. we then get the longest string from the resulting dictionary. 
+
+Question 2 complexity: 
+
+firt we convert "a" to a string (i.e. O(1)), then we loop through all characters of "a" with length n, then we have another loop within that loop which iterates n/2 times and has two 
+lines in it each with big o complexity of 1. so for these two loops the complexity is : O(n*(n/2*2)) = O(n^2). Then we return the highest value in the dictionary, it is going to be 
+smaller than n, but we will stick to n. So it's going to be a totall of :  O(n^2+n+1)
+
+
+Question 3 explanation: 
+
+The first for this question is to find the edges and vertices in a more managable format. A list of vertices and a tuple of edges with format (a,b,w) where a and b are the two nodes
+and w is the weight. At this point, I adopted the Kruskal's Minimum Spanning Tree Algorithm (not that I knew it, I googled it!). This algorithm starts from edges with lowest weights
+and keeps connecting until all points are connected. To do this, the key step here is to sort our list of edges according to their weight. then, we will start with the first edge 
+(i.e. lowest weight), and somehow mark the vertices of that edge. We can do this by replacing those vertices in our list of vertices with that edge.If any points remain in the vertices 
+list at the end of this process, it means that that node is isolated in our graph, and no minimum spanning tree can be defined.  
+
+Question 3 complexity:
+
+This one has a faily high complexity. First we have 3 loops plus one operation (i.e. append) within another loop. If we assume n iterations for each, it will be: O(3n^2+n). Next we 
+sort and flatten (2n), map to tuples (n) and sort(n), get the keys from edge dictionary(n) and sort (n), so O(5n) together. Next we have two loops one within another with five lines of
+complexity 1 in the second loop so it will be O(5(n^2)). Then, we have two more loops with one line of complexity 1 so: O(2n). adding all these together we will have:   O(8(n^2) + 8n) 
+
+Question 4 explanation: 
+
+For this question, we take the first node, (input # 3 or #4, doesn't matter). Next, we look into all of it's parents. It's easy to find the parents of a given node from matrix T and 
+I did that by defining a separate function. With this function, we find all non-root parents of the first chosen node and append it to a list. The way we do this process however, 
+is important. First we find the parent of node n and we know that n has one and one only parent. we append this parent to the list. next, we substitude the node n with it's parent and 
+this is the key point here. We do that until all parents of node n has been attached to our list. Next we will look into the second node, we apply the same strategy, starting from the 
+node going up. at every step, we check whether the parent is in the list of first node's parents. the first parent that we find, will be the answer. 
+
+Question 4 complexity:
+
+the "find_parent" function has a complexity of O(n+1). We have two while loops consisting and append functin (O(1)) and a find_parent function (O(n+1)) so each will be O(n^2+2n) and 
+the two of them will be O(2n^2 + 4n). 
+
+Question 5 explanation: 
+
+In this algorith I will define two pointers. Both pointers start at ll, the firt input and the beginning of the linked list. The next step is to somehow separate the two pointers
+so that pointer ll2 is m step ahead of ll1. To do this, we will replace ll1 with ll1.next for range(m) times. at this point, ll1 is m steps ahead of ll2. Now, we will take both ll1,
+and ll2 towards the end of the linked list, until there is no other node after ll1. At this point, ll1 is the last point in our list, and ll2 is m steps before ll1. Therefore,
+will be the required answer.
+
+Question 5 complexity:
+
+We assign two variables in the beginning: O(2), then we have a while loop with one line of complexity 1, so: O(n) and then another while loop of with two lines of complexity 1 each, 
+so, O(2n). Now we add them up: O(3n+2)
