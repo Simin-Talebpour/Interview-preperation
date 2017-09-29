@@ -1,0 +1,69 @@
+Question 1 explanation: 
+we can check whether two strings are anagram by checking the count of all characters in both string. If all counts are the same, then the two strings are anagram. 
+We can first compile a dictionary of counts for t and check with every possible consecutive substring sets in s. If any set is anagram of t, then we return True, else False.
+
+Question 1 complexity: 
+
+- for the count_dict function we loop through a given string and store a count dictionary. we do this twice for t and s so the time complexities are O(s) and O(t) respectively. 
+The space complexity, in worst case where all characters are unique is again, O(t) and O(S). Before, applying the count_dict function, we lower case the strings so O(s) and O(t) 
+because it has to go through all items with space complexity of O(1) each. Once more, it will loop through count_t, and check if an item exists in either count_s or count_t so in
+worst case the time complexity is : O(t)*(O(t)*O(s)) and the space complecity is constant O(1). So overall: time complexity is O(s)+O(t)+O(t)*(O(t)*O(s)) and space complexity is
+O(s)+O(t)+O(1)+O(1)
+
+
+Question 2 explanation: 
+
+To answer this question we will first generate all even length and odd length palindromes and keep track of the longest palindrome seen so far.
+Steps to generate odd length palindrome: Fix a centre and expand in both directions for longer palindromes.
+Steps to generate even length palindrome: Fix two centre ( low and high ) and expand in both directions for longer palindromes. 
+
+Question 2 complexity: 
+
+first we convert a to a string with time complexity of : O(N), then we define four constant variables O(1), we use a while loop to loop through a four line code each with complexity of 1, 
+the loop, at worst iterates len(a/2) times. So for each while loop we will have O(1*a/2)=O(a/2). So the two loops will be O(a/2). since we are looping through every character we will have 
+O(a)[O(1)*O(a)] for the entire for loop. putting it all together: O(a)[O(1)*O(a)]+O(a)+O(1)
+
+In terms of space complexity we define four constant variables O(1) and we also store a , so O(a+1). 
+
+
+Question 3 explanation: 
+
+The first for this question is to find the edges and vertices in a more managable format. A list of vertices and a tuple of edges with format (a,b,w) where a and b are the two nodes
+and w is the weight. At this point, I adopted the Kruskal's Minimum Spanning Tree Algorithm (not that I knew it, I googled it!). This algorithm starts from edges with lowest weights
+and keeps connecting until all points are connected. To do this, the key step here is to sort our list of edges according to their weight. then, we will start with the first edge 
+(i.e. lowest weight), and somehow mark the vertices of that edge. We can do this by replacing those vertices in our list of vertices with that edge.If any points remain in the vertices 
+list at the end of this process, it means that that node is isolated in our graph, and no minimum spanning tree can be defined.  
+
+Question 3 complexity:
+ 
+We first sort the edges: O(ELogE). After sorting, we iterate through all edges and apply find-union algorithm. The find and union operations can take atmost O(LogV) time. So overall 
+complexity is O(ELogE + ELogV) time. The value of E can be atmost O(V2), so O(LogV) are O(LogE) same. Therefore,overall time complexity is O(ElogE) or O(ElogV) and O(E) space. 
+
+Question 4 explanation: 
+
+For this question, we take the first node, (input # 3 or #4, doesn't matter). Next, we look into all of it's parents. It's easy to find the parents of a given node from matrix T and 
+I did that by defining a separate function. With this function, we find all non-root parents of the first chosen node and append it to a list. The way we do this process however, 
+is important. First we find the parent of node n and we know that n has one and one only parent. we append this parent to the list. next, we substitude the node n with it's parent and 
+this is the key point here. We do that until all parents of node n has been attached to our list. Next we will look into the second node, we apply the same strategy, starting from the 
+node going up. at every step, we check whether the parent is in the list of first node's parents. the first parent that we find, will be the answer. 
+
+Question 4 complexity:
+
+the "find_parent" function has a complexity of O(n+1). We have two while loops consisting and append functin (O(1)) and a find_parent function (O(n+1)) so each will be O(2n^2+n) and 
+the two of them will be O(2n^2 + n). 
+
+For the space complexity, we will have O(T)+O(parent_lst)+O(1)
+
+Question 5 explanation: 
+
+In this algorith I will define two pointers. Both pointers start at ll, the firt input and the beginning of the linked list. The next step is to somehow separate the two pointers
+so that pointer ll2 is m step ahead of ll1. To do this, we will replace ll1 with ll1.next for range(m) times. at this point, ll1 is m steps ahead of ll2. Now, we will take both ll1,
+and ll2 towards the end of the linked list, until there is no other node after ll1. At this point, ll1 is the last point in our list, and ll2 is m steps before ll1. Therefore,
+will be the required answer.
+
+Question 5 complexity:
+
+We assign two variables in the beginning: O(2), then we have a while loop with one line of complexity 1, so: O(n) and then another while loop of with two lines of complexity 1 each, 
+so, O(2n). Now we add them up: O(3n+2)
+
+In here we have a range function which consumes O(m) space and then ll1 and ll2  so : O(m)+1
